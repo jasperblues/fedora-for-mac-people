@@ -9,6 +9,8 @@ I moved from a MacBook to a Linux laptop and wanted the parts of the Mac I actua
 | ![Stock Fedora GNOME desktop](docs/img/before-desktop.png) | ![The same desktop after this guide: dark, dock on the right, SF fonts](docs/img/after-desktop.png) |
 | ![Stock Fedora overview](docs/img/before-overview.png) | ![Overview after this guide](docs/img/after-overview.png) |
 
+Why I moved, and what mattered most: **[I moved from a Mac to Linux, and made it feel like home](docs/story.md)** (a 4-minute read).
+
 Tested on Fedora 45 Workstation (GNOME 51, Wayland). Most of it applies to any recent GNOME.
 
 ## What you get
