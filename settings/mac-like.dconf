@@ -1,0 +1,62 @@
+# The look-and-feel settings from this guide, in `dconf load /` format.
+# Apply with:  dconf load / < settings/mac-like.dconf   (or run ./setup.sh)
+# Every key here is explained in the README.
+
+[org/gnome/desktop/interface]
+color-scheme='prefer-dark'
+accent-color='blue'
+gtk-theme='adw-gtk3-dark'
+font-name='SF Pro Text 11'
+document-font-name='SF Pro Text 12'
+monospace-font-name='SF Mono 11'
+cursor-theme='macOS'
+cursor-size=24
+enable-hot-corners=false
+show-battery-percentage=true
+
+[org/gnome/desktop/wm/preferences]
+titlebar-font='SF Pro Text Bold 11'
+action-middle-click-titlebar='minimize'
+
+[org/gnome/desktop/peripherals/touchpad]
+tap-to-click=false
+two-finger-scrolling-enabled=true
+
+[org/gnome/desktop/peripherals/mouse]
+natural-scroll=true
+
+[org/gnome/mutter]
+overlay-key=''
+
+[org/gnome/shell/keybindings]
+toggle-overview=['<Shift><Control>space']
+
+[org/gnome/shell/extensions/dash-to-dock]
+dock-position='RIGHT'
+dock-fixed=true
+autohide=true
+intellihide=true
+extend-height=false
+dash-max-icon-size=48
+running-indicator-style='DOT'
+click-action='focus-or-previews'
+show-mounts=false
+show-trash=false
+
+[org/gnome/shell/extensions/blur-my-shell]
+pipelines={'pipeline_default': {'name': <'Default'>, 'effects': <[<{'type': <'dual_kawase_blur'>, 'id': <'effect_000000000000'>, 'params': <{'unscaled_radius': <30>, 'brightness': <0.6>}>}>]>}, 'pipeline_liquid_frost': {'name': <'Liquid Frost'>, 'effects': <[<{'type': <'dual_kawase_blur'>, 'id': <'effect_liquid_frost_blur'>, 'params': <{'unscaled_radius': <12>, 'brightness': <1.0>}>}>, <{'type': <'luminosity'>, 'id': <'effect_liquid_frost_luminosity'>, 'params': <{'saturation_multiplicator': <1.1>}>}>, <{'type': <'refraction'>, 'id': <'effect_liquid_frost_refraction'>, 'params': <{'tint': <0>, 'edge_shadow': <0.2>, 'corner_radius': <24.0>, 'shadow': <0.0>}>}>, <{'type': <'noise'>, 'id': <'effect_liquid_frost_noise'>, 'params': <{'noise': <0.1>}>}>]>}}
+
+[org/gnome/shell/extensions/blur-my-shell/panel]
+static-blur=true
+
+[org/gnome/shell/extensions/blur-my-shell/dash-to-dock]
+blur=true
+static-blur=false
+style-dash-to-dock=0
+pipeline='pipeline_liquid_frost'
+
+[org/gnome/shell/extensions/roomy-panel]
+clock-position='right'
+
+[org/gnome/shell/extensions/ncom/github/hermes83/compiz-alike-magic-lamp-effect]
+duration=300.0
