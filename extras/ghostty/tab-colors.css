@@ -1,0 +1,33 @@
+/* Pretty tab headings: blue → pink → purple → periwinkle, flat colours.
+ *
+ * libadwaita's tabbox children go: separator, tabboxchild, separator, tabboxchild, …
+ * (in creation order), so tabs sit at even positions and a 4-colour cycle is 8n.
+ */
+
+tabbox > tabboxchild > tab {
+  border-radius: 8px;
+  margin: 3px 2px;
+  font-weight: 500;
+  transition: background-color 150ms ease;
+}
+
+
+/* 1: blue */
+tabbox > tabboxchild:nth-child(8n+2) > tab          { background-color: alpha(#5aa9ff, 0.16); color: #9ccbff; }
+tabbox > tabboxchild:nth-child(8n+2) > tab:hover    { background-color: alpha(#5aa9ff, 0.28); }
+tabbox > tabboxchild:nth-child(8n+2) > tab:selected { background-color: #3d8bfd; color: #ffffff; }
+
+/* 2: pink */
+tabbox > tabboxchild:nth-child(8n+4) > tab          { background-color: alpha(#ff6fb5, 0.16); color: #ffa8d6; }
+tabbox > tabboxchild:nth-child(8n+4) > tab:hover    { background-color: alpha(#ff6fb5, 0.28); }
+tabbox > tabboxchild:nth-child(8n+4) > tab:selected { background-color: #ec4899; color: #ffffff; }
+
+/* 3: purple */
+tabbox > tabboxchild:nth-child(8n+6) > tab          { background-color: alpha(#a974ff, 0.16); color: #cdb0ff; }
+tabbox > tabboxchild:nth-child(8n+6) > tab:hover    { background-color: alpha(#a974ff, 0.28); }
+tabbox > tabboxchild:nth-child(8n+6) > tab:selected { background-color: #8b5cf6; color: #ffffff; }
+
+/* 4: periwinkle */
+tabbox > tabboxchild:nth-child(8n+8) > tab          { background-color: alpha(#818cf8, 0.16); color: #b9c0ff; }
+tabbox > tabboxchild:nth-child(8n+8) > tab:hover    { background-color: alpha(#818cf8, 0.28); }
+tabbox > tabboxchild:nth-child(8n+8) > tab:selected { background-color: #6366f1; color: #ffffff; }

@@ -21,6 +21,8 @@ Tested on Fedora 45 Workstation (GNOME 51, Wayland). Most of it applies to any r
 - **The macOS cursor**, with GNOME's Inter-based font, which already looks a lot like San Francisco.
 - **Dark mode everywhere,** including older GTK3 apps that ignore GNOME's setting.
 - **Quick Look:** press Space on a file in Files.
+- **Mac screenshot shortcuts:** Cmd+Shift+3, 4 and 5.
+- **Coloured terminal tabs** in Ghostty.
 - **Genie-style minimise.**
 - **Magic Mouse gestures** with smooth momentum scrolling.
 - **Mac habits:** tap-to-click off, natural scrolling, hot corners off.
@@ -55,6 +57,16 @@ cd ~/toshy && ./setup_toshy.py install
 - **Cmd+W closes GNOME Software and Settings,** which ignore Ctrl+W.
 - **Cmd+V pastes images in terminals,** for tools such as Claude Code that read images from the clipboard.
 
+**Screenshots work like on a Mac** with no extra setup, because Toshy maps the Mac shortcuts to GNOME's screenshot tool:
+
+| Keys | What it does |
+|---|---|
+| Cmd+Shift+3 | Screenshot of the whole screen, straight away |
+| Cmd+Shift+4 | Screenshot of the current window (on a Mac this is a selected area; use Cmd+Shift+5 for that) |
+| Cmd+Shift+5 | GNOME's screenshot tool: area, window or screen, and screen recording |
+
+Screenshots are saved to `~/Pictures/Screenshots` and copied to the clipboard.
+
 ## 2. Dock: Dash to Dock + Blur my Shell
 
 ```sh
@@ -77,7 +89,7 @@ The dock sits on the right, always visible, with 48px icons, a dot under running
 
 **Fonts: keep GNOME's defaults.** Adwaita Sans, GNOME's interface font, is based on [Inter](https://rsms.me/inter/), which was designed in a very similar style to Apple's San Francisco. Most people won't notice the difference.
 
-> **Don't use Apple's SF fonts on Linux.** Apple's licence for SF Pro and SF Mono from developer.apple.com only allows them for mock-ups of apps for Apple's platforms, and the fonts bundled with macOS are licensed for Apple hardware only. Copying them from a Mac breaks that licence too.
+> **Hint: Apple's own fonts.** macOS uses SF Pro Text for the interface and SF Mono for code. For the exact Mac look, set them in GNOME Tweaks (interface font SF Pro Text 11, monospace SF Mono 11, window titles SF Pro Text Bold 11). Check the licence first, though: the SF fonts from [developer.apple.com/fonts](https://developer.apple.com/fonts/) are only licensed for mock-ups of apps for Apple's platforms, and the copies bundled with macOS are for Apple hardware. The guide doesn't install them for that reason.
 
 **Cursor.** The [apple_cursor](https://github.com/ful1e5/apple_cursor) theme (`macOS`) goes in `~/.local/share/icons/`.
 
@@ -95,7 +107,15 @@ printf '[Settings]\ngtk-application-prefer-dark-theme=1\n' >> ~/.config/gtk-3.0/
 
 (`Adwaita-dark` doesn't exist on Fedora 45, so setting that silently gives you light GTK3 apps.)
 
-## 6. Files and Quick Look
+## 6. Terminal: coloured Ghostty tabs
+
+![Ghostty with blue, pink, purple and periwinkle tabs](docs/img/after-terminal.png)
+
+[Ghostty](https://ghostty.org) (`sudo dnf install ghostty`) is a fast terminal that feels at home on both macOS and GNOME. [`extras/ghostty/`](extras/ghostty/) gives each tab its own colour (blue, pink, purple, periwinkle, then repeating), so you can tell your tabs apart at a glance. The colours are kept flat and soft so they don't distract from what's in the terminal. It also adds a thin grey border around the window, so a black terminal doesn't disappear against other dark windows.
+
+Copy `tab-colors.css` and `window-border.css` into `~/.config/ghostty/` and add the lines from [`extras/ghostty/config.ghostty`](extras/ghostty/config.ghostty) to your Ghostty config.
+
+## 7. Files and Quick Look
 
 ```sh
 sudo dnf install sushi
@@ -103,11 +123,11 @@ sudo dnf install sushi
 
 [Sushi](https://gitlab.gnome.org/GNOME/sushi) previews files in Files when you press **Space**, with arrow keys moving to the next file, like Quick Look.
 
-## 7. Genie minimise
+## 8. Genie minimise
 
 [Compiz alike magic lamp effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/) minimises windows into the dock with a genie animation. It's set to 300ms, a little quicker than the default, which keeps it subtle.
 
-## 8. Mouse and touchpad
+## 9. Mouse and touchpad
 
 - **Magic Mouse:** [magic-mouse-gestures](https://github.com/jasperblues/magic-mouse-gestures) adds smooth one-finger scrolling with momentum, two-finger double-tap for the overview (Mission Control) and two-finger swipes between workspaces (Spaces). Without it, a Magic Mouse on Linux scrolls in jerky steps and has no gestures.
 - **Touchpad:** tap-to-click off and two-finger scrolling on, as on a MacBook. Natural scrolling is GNOME's default for touchpads, and the settings turn it on for mice too.
@@ -116,7 +136,7 @@ sudo dnf install sushi
 ## Optional extras
 
 - [**Polite Focus**](https://github.com/jasperblues/gnome-polite-focus): on macOS, a window that wants your attention comes to the front. GNOME shows an "is ready" notification instead. This extension brings the window forward, and lets you mute apps that ask for attention too often.
-- [**Thunderbird Mac style**](https://github.com/jasperblues/thunderbird-mac-style): makes Thunderbird look like a Mac mail client.
+- [**Thunderbird Mac style**](https://github.com/jasperblues/thunderbird-mac-style): makes Thunderbird look like a Mac mail client. Email on Linux still feels a bit dated, though. There's room for a new mail app (watch this space).
 - [**Headroom**](https://github.com/jasperblues/gnome-headroom): AI plan limits and token usage in the top bar, for people who use Claude Code or Codex.
 - [**LG UltraFine watchdog**](https://github.com/jasperblues/lg-ultrafine-watchdog): keeps an LG UltraFine 5K (the Apple-sold display) connected on laptops that drop the Thunderbolt link.
 - **Firefox scroll speed:** GNOME has no touchpad scroll-speed setting (the gsettings key exists but is ignored). In Firefox, raise `apz.gtk.pangesture.pixel_delta_mode_multiplier` in `about:config` if scrolling feels slow.

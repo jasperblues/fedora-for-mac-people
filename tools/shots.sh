@@ -14,7 +14,15 @@ out="$repo/docs/img"
 size=${SHOT_SIZE:-1440x900}
 
 tmp=$(mktemp -d)
-trap 'rm -rf "$tmp"' EXIT
+# Stop anything the throwaway session left running (e.g. wsdd, started by Files), then delete it.
+cleanup() {
+    local p
+    for p in $(pgrep -u "$USER"); do
+        grep -qz "^HOME=$tmp/home\$" "/proc/$p/environ" 2>/dev/null && kill "$p" 2>/dev/null
+    done
+    rm -rf "$tmp"
+}
+trap cleanup EXIT
 # A fake home, so the windows show demo files and none of your own folders or mounts.
 home="$tmp/home"
 data="$home/.local/share"
@@ -30,6 +38,15 @@ if [[ $mode == before ]]; then
 else
     # Cursor theme from ~/.local. Fonts deliberately stay the system ones (the guide uses GNOME's defaults).
     [[ -d $HOME/.local/share/icons ]] && ln -s "$HOME/.local/share/icons" "$data/icons"
+    # Ghostty with the guide's tab colours, and a plain prompt that doesn't show your user or host name.
+    mkdir -p "$home/.config/ghostty"
+    cp "$repo"/extras/ghostty/* "$home/.config/ghostty/"
+    printf 'font-size = 11\nwindow-width = 100\nwindow-height = 24\nshell-integration-features = no-title\n' >> "$home/.config/ghostty/config.ghostty"
+    cat > "$home/.zshrc" <<'ZSH'
+PROMPT='%F{blue}%~%f %# '
+precmd() { print -Pn "\e]2;%1~\a" }
+alias ls='ls --color=auto'
+ZSH
     # Extensions installed per-user (system ones in /usr/share are found automatically).
     for d in "$HOME"/.local/share/gnome-shell/extensions/*/; do
         ln -s "${d%/}" "$ext/$(basename "$d")"
@@ -45,12 +62,13 @@ cat > "$tmp/inner.sh" <<INNER
 dconf write /org/gnome/shell/enabled-extensions "[$uuids]"
 dconf write /org/gnome/shell/welcome-dialog-last-shown-version "'999'"
 $load
-timeout 40 gnome-shell --headless --virtual-monitor $size --wayland --no-x11 > "$tmp/shell.log" 2>&1
+timeout 70 gnome-shell --headless --virtual-monitor $size --wayland --no-x11 > "$tmp/shell.log" 2>&1
 true
 INNER
 chmod +x "$tmp/inner.sh"
 env -u WAYLAND_DISPLAY -u DISPLAY -u XDG_DATA_HOME -u XDG_CONFIG_HOME -u XDG_CACHE_HOME -u XDG_STATE_HOME \
     HOME="$home" XDG_RUNTIME_DIR="$tmp/runtime" SHOT_DIR="$out" SHOT_PREFIX="$mode" SHOT_DEMO="$home" \
     dbus-run-session -- "$tmp/inner.sh" 2>/dev/null
+cp "$tmp/shell.log" "$here/last-shell.log"
 grep -E 'SHOT|JS ERROR' "$tmp/shell.log" || true
 ls "$out/$mode"-*.png

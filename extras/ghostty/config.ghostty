@@ -1,0 +1,10 @@
+# Add these lines to ~/.config/ghostty/config.ghostty (or config), and copy
+# tab-colors.css and window-border.css next to it. Paths are relative to the config file.
+
+# Blue, pink, purple and periwinkle tabs
+gtk-custom-css = tab-colors.css
+# New tabs go at the end, so the colours follow the order you see
+window-new-tab-position = end
+
+# Thin grey border, so a black terminal stands out against other dark windows
+gtk-custom-css = window-border.css

@@ -1,0 +1,5 @@
+/* Thin macOS-style grey border so a black terminal stands out against other dark windows. */
+window.csd:not(.maximized):not(.fullscreen):not(.tiled) {
+  outline: 1px solid rgba(255, 255, 255, 0.18);
+  outline-offset: -1px;
+}
