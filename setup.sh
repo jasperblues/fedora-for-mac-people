@@ -59,10 +59,10 @@ git_ext() {
 bold "Fedora for Mac people: GNOME $shell_major"
 
 bold "1. Packages from Fedora (dnf; asks for your password)"
-echo "  Dash to Dock, tray icons, dark GTK3 theme, Quick Look (sushi), Inter + JetBrains Mono fonts"
+echo "  Dash to Dock, tray icons, dark GTK3 theme, Quick Look (sushi)"
 if ask "Install them?"; then
     sudo dnf install -y gnome-shell-extension-dash-to-dock gnome-shell-extension-appindicator \
-        adw-gtk3-theme sushi rsms-inter-fonts jetbrains-mono-fonts git curl
+        adw-gtk3-theme sushi git curl
     enable_ext dash-to-dock@micxgx.gmail.com
     enable_ext appindicatorsupport@rgcjonas.gmail.com
 fi
@@ -94,13 +94,8 @@ if ask "Install it into ~/.local/share/icons?"; then
     echo "  installed"
 fi
 
-bold "6. Settings: dark mode, fonts, dock, top bar, touchpad, shortcuts"
+bold "6. Settings: dark mode, dock, top bar, touchpad, shortcuts"
 settings="$repo/settings/mac-like.dconf"
-if ! fc-list | grep -q 'SF Pro Text'; then
-    echo "  SF Pro isn't installed (see README), so using Inter and JetBrains Mono instead."
-    sed -e 's/SF Pro Text/Inter/g' -e 's/SF Mono/JetBrains Mono/g' "$settings" > "$tmp/mac-like.dconf"
-    settings="$tmp/mac-like.dconf"
-fi
 if ask "Apply settings/mac-like.dconf?"; then
     dconf load / < "$settings"
     mkdir -p ~/.config/gtk-3.0

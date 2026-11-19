@@ -5,7 +5,7 @@
 #   tools/shots.sh after    the setup from this guide (settings/mac-like.dconf + the extensions)
 #
 # Output: docs/img/<mode>-desktop.png and <mode>-overview.png
-# Needs: mutter-devkit (dnf), and for "after" the fonts, cursor and extensions from the guide installed in ~/.local.
+# Needs: mutter-devkit (dnf), and for "after" the cursor and extensions from the guide installed in ~/.local.
 set -euo pipefail
 mode=${1:?usage: tools/shots.sh before|after}
 here=$(cd "$(dirname "$0")" && pwd)
@@ -28,8 +28,8 @@ if [[ $mode == before ]]; then
     uuids="'background-logo@fedorahosted.org', 'shot-helper@local'"
     load=""
 else
-    # Fonts and cursor theme from ~/.local (fontconfig and GTK look under $XDG_DATA_HOME).
-    for d in fonts icons; do [[ -d $HOME/.local/share/$d ]] && ln -s "$HOME/.local/share/$d" "$data/$d"; done
+    # Cursor theme from ~/.local. Fonts deliberately stay the system ones (the guide uses GNOME's defaults).
+    [[ -d $HOME/.local/share/icons ]] && ln -s "$HOME/.local/share/icons" "$data/icons"
     # Extensions installed per-user (system ones in /usr/share are found automatically).
     for d in "$HOME"/.local/share/gnome-shell/extensions/*/; do
         ln -s "${d%/}" "$ext/$(basename "$d")"

@@ -6,7 +6,7 @@ I moved from a MacBook to a Linux laptop and wanted the parts of the Mac I actua
 
 | Stock Fedora 45 | After this guide |
 |---|---|
-| ![Stock Fedora GNOME desktop](docs/img/before-desktop.png) | ![The same desktop after this guide: dark, dock on the right, SF fonts](docs/img/after-desktop.png) |
+| ![Stock Fedora GNOME desktop](docs/img/before-desktop.png) | ![The same desktop after this guide: dark, dock on the right, roomier top bar](docs/img/after-desktop.png) |
 | ![Stock Fedora overview](docs/img/before-overview.png) | ![Overview after this guide](docs/img/after-overview.png) |
 
 Why I moved, and what mattered most: **[I moved from a Mac to Linux, and made it feel like home](docs/story.md)** (a 4-minute read).
@@ -18,7 +18,7 @@ Tested on Fedora 45 Workstation (GNOME 51, Wayland). Most of it applies to any r
 - **Cmd works like Cmd.** Cmd+C, Cmd+Tab, Cmd+Q, Cmd+Space, word jumps with Option+arrows, in every app including terminals.
 - **A Mac-style dock** with blurred glass, running-app dots, and Cmd+Option+D to toggle auto-hide.
 - **A roomier top bar** with the clock on the right, after the status icons, like the menu bar.
-- **San Francisco fonts and the macOS cursor.**
+- **The macOS cursor**, with GNOME's Inter-based font, which already looks a lot like San Francisco.
 - **Dark mode everywhere,** including older GTK3 apps that ignore GNOME's setting.
 - **Quick Look:** press Space on a file in Files.
 - **Genie-style minimise.**
@@ -75,10 +75,9 @@ The dock sits on the right, always visible, with 48px icons, a dot under running
 
 ## 4. Fonts and cursor
 
-**Fonts.** The interface uses SF Pro Text 11, window titles SF Pro Text Bold 11, and terminals and code SF Mono 11.
-- Apple's fonts are a free download from [developer.apple.com/fonts](https://developer.apple.com/fonts/). You can also copy them from a Mac's `/Library/Fonts` and `/System/Library/Fonts`. Put them in `~/.local/share/fonts/` and run `fc-cache -f`.
-- Apple's licence is written for designing apps for Apple platforms, so decide for yourself whether you're comfortable using them on Linux.
-- If SF Pro isn't installed, `setup.sh` uses [Inter](https://rsms.me/inter/) and JetBrains Mono instead (both open source, in dnf). Inter was designed in a very similar style to SF.
+**Fonts: keep GNOME's defaults.** Adwaita Sans, GNOME's interface font, is based on [Inter](https://rsms.me/inter/), which was designed in a very similar style to Apple's San Francisco. Most people won't notice the difference.
+
+> **Don't use Apple's SF fonts on Linux.** Apple's licence for SF Pro and SF Mono from developer.apple.com only allows them for mock-ups of apps for Apple's platforms, and the fonts bundled with macOS are licensed for Apple hardware only. Copying them from a Mac breaks that licence too.
 
 **Cursor.** The [apple_cursor](https://github.com/ful1e5/apple_cursor) theme (`macOS`) goes in `~/.local/share/icons/`.
 

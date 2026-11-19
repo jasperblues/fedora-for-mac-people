@@ -6,16 +6,12 @@
 color-scheme='prefer-dark'
 accent-color='blue'
 gtk-theme='adw-gtk3-dark'
-font-name='SF Pro Text 11'
-document-font-name='SF Pro Text 12'
-monospace-font-name='SF Mono 11'
 cursor-theme='macOS'
 cursor-size=24
 enable-hot-corners=false
 show-battery-percentage=true
 
 [org/gnome/desktop/wm/preferences]
-titlebar-font='SF Pro Text Bold 11'
 action-middle-click-titlebar='minimize'
 
 [org/gnome/desktop/peripherals/touchpad]

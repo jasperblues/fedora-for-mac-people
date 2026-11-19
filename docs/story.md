@@ -28,14 +28,14 @@ What makes a Mac feel like a Mac is that Cmd does the same thing everywhere. Cmd
 ## The look
 
 - **Dock on the right** (Dash to Dock), with a frosted-glass background from Blur my Shell. I tuned a "Liquid Frost" effect: light blur, a little refraction at the edges, a touch of noise. Cmd+Option+D toggles auto-hide, as on the Mac.
-- **San Francisco fonts and the macOS cursor.** Small, but you notice them all day. Inter is a good free stand-in for SF.
+- **The macOS cursor.** Small, but you notice it all day. I kept GNOME's own font: it's based on Inter, which already looks a lot like Apple's San Francisco (and Apple's fonts aren't licensed for Linux anyway).
 - **A roomier top bar.** GNOME packs status icons 4px apart. I wrote a tiny extension, [Roomy Panel](https://github.com/jasperblues/gnome-roomy-panel), that spaces them out like the menu bar and moves the clock to the right.
 - **Genie minimise**, a bit faster than the default so it stays subtle.
 - **Dark mode everywhere**, including older GTK3 apps. That one took a while: the obvious theme name, `Adwaita-dark`, doesn't exist on Fedora 45, so those apps quietly stayed light.
 
 ## The Magic Mouse
 
-On Linux the Magic Mouse scrolls in stuttering steps and has no gestures. So I wrote a [small daemon](https://github.com/jasperblues/magic-mouse-gestures) that reads the touch surface directly. It gives smooth scrolling with momentum, a two-finger double-tap for the overview and two-finger swipes between workspaces. Honestly, scrolling now feels better than on my Mac's trackpad.
+On Linux the Magic Mouse scrolls in stuttering steps and has no gestures. So I wrote a [small daemon](https://github.com/jasperblues/magic-mouse-gestures) that reads the touch surface directly. It gives smooth scrolling with momentum, a two-finger double-tap for the overview and two-finger swipes between workspaces.
 
 ## The little things
 
