@@ -3,6 +3,14 @@
 # lines in ~/.config/toshy/toshy_config.py (edits there survive Toshy upgrades), then
 # restart Toshy: systemctl --user restart toshy-config.service
 
+# Cmd+; opens overview search too: a second Spotlight key alongside Cmd+Space.
+keymap("User: Cmd+; opens GNOME overview search (Spotlight)", {
+    C("RC-Semicolon"):          C("Shift-C-Space"),             # = toggle-overview (set by Toshy GNOME tweaks)
+}, when = lambda ctx:
+    cnfg.screen_has_focus and
+    not ctx_app_is_remote
+)
+
 keymap("User: Cmd+W closes window in GNOME apps without Ctrl+W", {
     C("RC-W"):                  C("Alt-F4"),                    # macOS-like close window
 }, when = lambda ctx:

@@ -54,6 +54,7 @@ cd ~/toshy && ./setup_toshy.py install
 
 [`extras/toshy-user-keymaps.py`](extras/toshy-user-keymaps.py) has a few additions to paste into the `user_apps` section of your Toshy config:
 
+- **Cmd+; also opens overview search,** a second Spotlight key.
 - **Cmd+W closes GNOME Software and Settings,** which ignore Ctrl+W.
 - **Cmd+V pastes images in terminals,** for tools such as Claude Code that read images from the clipboard.
 
