@@ -128,7 +128,18 @@ PY
     echo "  bound to Ctrl+Alt+D (Cmd+Option+D once Toshy is running)"
 fi
 
-bold "8. Magic Mouse gestures and momentum scrolling - optional"
+bold "8. Dock icons shrink no smaller than 32px, like the Mac"
+if ask "Patch a copy of Dash to Dock into ~/.local?"; then
+    mkdir -p ~/.local/bin ~/.config/systemd/user
+    install -m 755 "$repo/extras/dock-icon-floor" ~/.local/bin/dock-icon-floor
+    ~/.local/bin/dock-icon-floor
+    # Re-patch whenever dnf updates Dash to Dock.
+    install -m 644 "$repo/extras/dock-icon-floor.path" "$repo/extras/dock-icon-floor.service" ~/.config/systemd/user/
+    systemctl --user daemon-reload
+    systemctl --user enable --now dock-icon-floor.path
+fi
+
+bold "9. Magic Mouse gestures and momentum scrolling - optional"
 if ask "Install github.com/jasperblues/magic-mouse-gestures into ~/projects?"; then
     sudo dnf install -y python3-libevdev python3-gobject
     dest=~/projects/magic-mouse-gestures   # the service file expects this path

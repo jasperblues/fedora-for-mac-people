@@ -1,0 +1,6 @@
+[Unit]
+Description=Re-patch Dash to Dock's icon floor
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/dock-icon-floor

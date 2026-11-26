@@ -76,6 +76,8 @@ sudo dnf install gnome-shell-extension-dash-to-dock
 
 The dock sits on the right, always visible, with 48px icons, a dot under running apps, and no trash or drive icons. Clicking an app with several windows shows previews. Change `dock-position` to `'BOTTOM'` in [`settings/mac-like.dconf`](settings/mac-like.dconf) if you like it at the bottom.
 
+**Icons shrink, but not forever.** When the Mac dock fills up, its icons get smaller down to a limit. Dash to Dock either shrinks them with no limit (down to 16px) or, with "fixed icon size", never shrinks them at all. [`extras/dock-icon-floor`](extras/dock-icon-floor) copies Fedora's Dash to Dock into `~/.local` with the sizes below 32px removed, so icons stop at 32px and the dock scrolls after that. Run `dock-icon-floor 24` for a different floor, or `dock-icon-floor --remove` to go back to the stock copy. `setup.sh` also installs a small systemd user unit that re-patches the copy whenever dnf updates Dash to Dock, so you keep getting updates.
+
 **Cmd+Option+D toggles auto-hide**, as on the Mac. [`extras/toggle-dock-autohide`](extras/toggle-dock-autohide) flips the dock between always shown and auto-hide, and `setup.sh` binds it to Ctrl+Alt+D, which is what Cmd+Option+D sends once Toshy is running.
 
 **Glass:** [Blur my Shell](https://extensions.gnome.org/extension/3193/blur-my-shell/) gives the dock a frosted-glass look ("Liquid Frost": light blur, slight refraction at the edges, a little noise) and blurs the top bar.

@@ -1,0 +1,8 @@
+[Unit]
+Description=Re-patch Dash to Dock's icon floor when dnf updates it
+
+[Path]
+PathChanged=/usr/share/gnome-shell/extensions/dash-to-dock@micxgx.gmail.com/dash.js
+
+[Install]
+WantedBy=default.target

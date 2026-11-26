@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Give Dash to Dock a minimum icon size, like the Mac dock.
+#
+# When the dock fills up, Dash to Dock shrinks its icons through 48, 32, 24, 22 and
+# 16px with no lower limit. Its only alternative ("fixed icon size") never shrinks
+# them at all. This copies Fedora's Dash to Dock into ~/.local (which takes
+# precedence over the dnf copy) and drops the sizes below the floor, so icons
+# shrink to the floor and then the dock scrolls.
+#
+#   dock-icon-floor          floor of 32px (or the one chosen last time)
+#   dock-icon-floor 24       another floor
+#   dock-icon-floor --remove go back to the dnf copy
+#
+# Safe to run again. dock-icon-floor.path reruns it when dnf updates Dash to Dock.
+# Log out and back in for a new copy to load.
+set -euo pipefail
+uuid=dash-to-dock@micxgx.gmail.com
+src=/usr/share/gnome-shell/extensions/$uuid
+dest=$HOME/.local/share/gnome-shell/extensions/$uuid
+marker=$dest/.dock-icon-floor
+
+if [[ ${1:-} == --remove ]]; then
+    if [[ -f $marker ]]; then
+        rm -rf "$dest"
+        echo "removed the patched copy; the dnf Dash to Dock loads at next login"
+    fi
+    exit 0
+fi
+
+# No argument: keep the floor chosen last time.
+saved=$(sed -n 's/.*floor=//p' "$marker" 2>/dev/null || true)
+floor=${1:-${saved:-32}}
+[[ $floor =~ ^[0-9]+$ ]] || { echo "usage: $0 [floor-px | --remove]" >&2; exit 2; }
+[[ -f $src/dash.js ]] || { echo "Dash to Dock isn't installed: sudo dnf install gnome-shell-extension-dash-to-dock" >&2; exit 1; }
+if [[ -d $dest && ! -f $marker ]]; then
+    echo "$dest exists and wasn't made by this script; leaving it alone" >&2
+    exit 1
+fi
+
+version=$(rpm -q --qf '%{VERSION}-%{RELEASE}' gnome-shell-extension-dash-to-dock 2>/dev/null || echo unknown)
+want="$version floor=$floor"
+if [[ -f $marker && $(cat "$marker") == "$want" ]]; then
+    echo "already patched ($want)"
+    exit 0
+fi
+
+# The line being patched, in _initializeIconSize():  return val < maxSize;
+needle='return val < maxSize;'
+grep -qF "$needle" "$src/dash.js" || {
+    echo "Dash to Dock $version changed its icon-size code; not patching. The dnf copy stays in use." >&2
+    exit 1
+}
+
+tmp=$(mktemp -d "$dest.XXXXXX")
+trap 'rm -rf "$tmp"' EXIT
+cp -a "$src/." "$tmp/"
+sed -i "s/$needle/return val < maxSize \&\& val >= $floor;/" "$tmp/dash.js"
+echo "$want" > "$tmp/.dock-icon-floor"
+rm -rf "$dest"
+mv "$tmp" "$dest"
+trap - EXIT
+
+# Shrinking has to be on for the floor to mean anything.
+gsettings set org.gnome.shell.extensions.dash-to-dock icon-size-fixed false
+echo "patched Dash to Dock $version: icons shrink to ${floor}px, then the dock scrolls"
+echo "log out and back in to load it"
