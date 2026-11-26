@@ -1,7 +1,9 @@
 /* Pretty tab headings: blue → pink → purple → periwinkle, flat colours.
  *
  * libadwaita's tabbox children go: separator, tabboxchild, separator, tabboxchild, …
- * (in creation order), so tabs sit at even positions and a 4-colour cycle is 8n.
+ * (in creation order), so tabs usually sit at even positions and a 4-colour cycle is 8n.
+ * Closing/moving tabs can leave the separators out of step, putting tabs at odd
+ * positions, so each colour matches both 8n+odd and 8n+even.
  */
 
 tabbox > tabboxchild > tab {
@@ -13,21 +15,33 @@ tabbox > tabboxchild > tab {
 
 
 /* 1: blue */
+tabbox > tabboxchild:nth-child(8n+1) > tab,
 tabbox > tabboxchild:nth-child(8n+2) > tab          { background-color: alpha(#5aa9ff, 0.16); color: #9ccbff; }
+tabbox > tabboxchild:nth-child(8n+1) > tab:hover,
 tabbox > tabboxchild:nth-child(8n+2) > tab:hover    { background-color: alpha(#5aa9ff, 0.28); }
+tabbox > tabboxchild:nth-child(8n+1) > tab:selected,
 tabbox > tabboxchild:nth-child(8n+2) > tab:selected { background-color: #3d8bfd; color: #ffffff; }
 
 /* 2: pink */
+tabbox > tabboxchild:nth-child(8n+3) > tab,
 tabbox > tabboxchild:nth-child(8n+4) > tab          { background-color: alpha(#ff6fb5, 0.16); color: #ffa8d6; }
+tabbox > tabboxchild:nth-child(8n+3) > tab:hover,
 tabbox > tabboxchild:nth-child(8n+4) > tab:hover    { background-color: alpha(#ff6fb5, 0.28); }
+tabbox > tabboxchild:nth-child(8n+3) > tab:selected,
 tabbox > tabboxchild:nth-child(8n+4) > tab:selected { background-color: #ec4899; color: #ffffff; }
 
 /* 3: purple */
+tabbox > tabboxchild:nth-child(8n+5) > tab,
 tabbox > tabboxchild:nth-child(8n+6) > tab          { background-color: alpha(#a974ff, 0.16); color: #cdb0ff; }
+tabbox > tabboxchild:nth-child(8n+5) > tab:hover,
 tabbox > tabboxchild:nth-child(8n+6) > tab:hover    { background-color: alpha(#a974ff, 0.28); }
+tabbox > tabboxchild:nth-child(8n+5) > tab:selected,
 tabbox > tabboxchild:nth-child(8n+6) > tab:selected { background-color: #8b5cf6; color: #ffffff; }
 
 /* 4: periwinkle */
+tabbox > tabboxchild:nth-child(8n+7) > tab,
 tabbox > tabboxchild:nth-child(8n+8) > tab          { background-color: alpha(#818cf8, 0.16); color: #b9c0ff; }
+tabbox > tabboxchild:nth-child(8n+7) > tab:hover,
 tabbox > tabboxchild:nth-child(8n+8) > tab:hover    { background-color: alpha(#818cf8, 0.28); }
+tabbox > tabboxchild:nth-child(8n+7) > tab:selected,
 tabbox > tabboxchild:nth-child(8n+8) > tab:selected { background-color: #6366f1; color: #ffffff; }
